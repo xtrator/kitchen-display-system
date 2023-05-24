@@ -1,0 +1,104 @@
+{
+  "orders": [
+    {
+      "products": [
+        {
+          "name": "Wild Thing",
+          "quantity": 2,
+          "instructions": ["No Mayo", "Dripping Cheese"]
+        },
+        {
+          "name": "Regular Fries",
+          "quantity": 1,
+          "instructions": ["Ketchup"]
+        },
+        {
+          "name": "Tenders with 2 dips",
+          "quantity": 1,
+          "instructions": ["No Pickles"]
+        },
+        {
+          "name": "OG",
+          "quantity": 2,
+          "instructions": ["Bacon", "Slaw"]
+        },
+        {
+          "name": "Wild Thing",
+          "quantity": 3,
+          "instructions": ["No Mayo", "Dripping Cheese", "Ketchup"]
+        }
+      ],
+      "orderId": 1,
+      "orderTime": "3:10",
+      "estimate": 20,
+      "table": 3
+    },
+    {
+      "products": [
+        {
+          "name": "Tenders with 2 dips",
+          "quantity": 3,
+          "instructions": ["No Pickles", "Soy Glaze"]
+        }
+      ],
+      "orderId": 2,
+      "orderTime": "4:30",
+      "estimate": 15,
+      "table": 2
+    },
+    {
+      "products": [
+        {
+          "name": "OG",
+          "quantity": 1,
+          "instructions": ["Bacon"]
+        },
+        {
+          "name": "Wild Thing",
+          "quantity": 1,
+          "instructions": ["No Mayo"]
+        }
+      ],
+      "orderId": 3,
+      "orderTime": "5:45",
+      "estimate": 25,
+      "table": 5
+    },
+    {
+      "products": [
+        {
+          "name": "Regular Fries",
+          "quantity": 2,
+          "instructions": ["Ketchup"]
+        }
+      ],
+      "orderId": 4,
+      "orderTime": "6:20",
+      "estimate": 10,
+      "table": 1
+    },
+    {
+      "products": [
+        {
+          "name": "Tenders with 2 dips",
+          "quantity": 1,
+          "instructions": ["No Pickles"]
+        },
+        {
+          "name": "OG",
+          "quantity": 2,
+          "instructions": ["Bacon", "Slaw"]
+        },
+        {
+          "name": "Wild Thing",
+          "quantity": 3,
+          "instructions": ["No Mayo", "Dripping Cheese", "Ketchup"]
+        }
+      ],
+      "orderId": 5,
+      "orderTime": "7:55",
+      "estimate": 30,
+      "table": 4
+    }
+  ]
+}
