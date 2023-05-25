@@ -48,7 +48,7 @@ export default function Home() {
           ...o,
           {
             ...doc.data(),
-            docId: doc.ref,
+            docId: doc.ref.id,
           },
         ]);
       });

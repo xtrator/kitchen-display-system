@@ -1,3 +1,6 @@
+import { doc, updateDoc } from "firebase/firestore";
+// @ts-ignore
+import { db } from "../../../firebase-config.js";
 import styled, { css } from "styled-components";
 
 interface Props {
@@ -99,8 +102,13 @@ const StyledButton = styled.button<{ $color?: string }>`
 `;
 
 export default function Order({ order }: Props) {
+  function updateStatus(status: string) {
+    updateDoc(doc(db, "Orders", order.docId), {
+      status: status,
+    }).catch((err) => alert(err.message));
+  }
   return (
-    <WrapperElement key={order.orderId}>
+    <WrapperElement>
       <MetaDiv>
         <MetaP>
           <MetaSpan>Order {order.orderId}</MetaSpan>
@@ -129,13 +137,34 @@ export default function Order({ order }: Props) {
       </ProductsWrapper>
       <ButtonsWrapper>
         {order.status === "pending" && (
-          <StyledButton $color="#1AD285">Prepare</StyledButton>
+          <StyledButton
+            $color="#1AD285"
+            onClick={() => updateStatus("preparing")}
+          >
+            Prepare
+          </StyledButton>
         )}
         {order.status === "preparing" && (
-          <StyledButton $color="#1AD285">Finish</StyledButton>
+          <StyledButton
+            $color="#1AD285"
+            onClick={() => updateStatus("completed")}
+          >
+            Complete
+          </StyledButton>
         )}
 
-        <StyledButton $color="#FF7979">Cancel</StyledButton>
+        {order.status !== "completed" && (
+          <StyledButton
+            $color="#FF7979"
+            onClick={() => updateStatus("cancelled")}
+          >
+            Cancel
+          </StyledButton>
+        )}
+
+        {["cancelled", "completed"].includes(order.status) && (
+          <StyledButton $color="#FF7979">Delete</StyledButton>
+        )}
       </ButtonsWrapper>
     </WrapperElement>
   );
