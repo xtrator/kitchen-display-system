@@ -1,4 +1,4 @@
-import { doc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 // @ts-ignore
 import { db } from "../../../firebase-config.js";
 import styled, { css } from "styled-components";
@@ -107,6 +107,10 @@ export default function Order({ order }: Props) {
       status: status,
     }).catch((err) => alert(err.message));
   }
+
+  function handleDelete(id: string) {
+    deleteDoc(doc(db, "Orders", id)).catch((err) => alert(err.message));
+  }
   return (
     <WrapperElement>
       <MetaDiv>
@@ -153,7 +157,7 @@ export default function Order({ order }: Props) {
           </StyledButton>
         )}
 
-        {order.status !== "completed" && (
+        {["pending", "preparing"].includes(order.status) && (
           <StyledButton
             $color="#FF7979"
             onClick={() => updateStatus("cancelled")}
@@ -163,7 +167,12 @@ export default function Order({ order }: Props) {
         )}
 
         {["cancelled", "completed"].includes(order.status) && (
-          <StyledButton $color="#FF7979">Delete</StyledButton>
+          <StyledButton
+            $color="#FF7979"
+            onClick={() => handleDelete(order.docId)}
+          >
+            Delete
+          </StyledButton>
         )}
       </ButtonsWrapper>
     </WrapperElement>
