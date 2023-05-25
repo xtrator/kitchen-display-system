@@ -1,4 +1,8 @@
+import { getAuth, signOut } from "firebase/auth";
 import styled, { css } from "styled-components";
+
+import { useDispatch, useSelector } from "react-redux";
+import { setUserLogOutState, selectUserPhoto } from "../../features/userSlice";
 
 const StyledNav = styled.nav`
   width: 200px;
@@ -41,9 +45,20 @@ const StyledP = styled.p<{ $secondary?: boolean }>`
 `;
 
 export default function Nav() {
+  const dispatch = useDispatch();
+  const userPhoto: string = useSelector(selectUserPhoto);
+
+  const handleSignOut = () => {
+    signOut(getAuth())
+      .then(() => {
+        dispatch(setUserLogOutState());
+      })
+      .catch((err) => alert(err.message));
+  };
+
   return (
     <StyledNav>
-      <StyledImage src="/profile.jpeg" alt="profile image of logged user" />
+      <StyledImage src={userPhoto} alt="profile image of logged user" />
       <StyledDiv>
         <div>
           <StyledP>16 Feb 2022</StyledP>
@@ -55,6 +70,7 @@ export default function Nav() {
           <li>🗒 Orders</li>
         </StyledUL>
       </StyledDiv>
+      <button onClick={handleSignOut}>Logout</button>
     </StyledNav>
   );
 }

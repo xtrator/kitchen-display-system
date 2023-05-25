@@ -1,4 +1,6 @@
 import { styled } from "styled-components";
+import { useSelector } from "react-redux";
+import { selectUserName } from "../../features/userSlice";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -13,9 +15,10 @@ const StyledH1 = styled.h1`
 `;
 
 export default function Header() {
+  const userName: string = useSelector(selectUserName);
   return (
     <StyledWrapper>
-      <StyledH1>☀️ Good Morning</StyledH1>
+      <StyledH1>☀️ Good Morning, {userName}</StyledH1>
       <p>🔔</p>
     </StyledWrapper>
   );
