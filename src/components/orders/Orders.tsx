@@ -27,6 +27,7 @@ export default function Orders({ orders }: Props) {
   return (
     <OrdersWrapper>
       {orders.map((order) => {
+        /* @ts-ignore */
         return <Order order={order} key={order.orderId} />;
       })}
     </OrdersWrapper>

@@ -1,5 +1,5 @@
 // @ts-ignore
-import { app } from "../../firebase-config.js";
+import { app, db } from "../../firebase-config.js";
 
 import Layout from "./layout";
 import { styled } from "styled-components";
@@ -8,10 +8,13 @@ import Orders from "../components/orders/Orders";
 
 import { useSelector } from "react-redux";
 // @ts-ignore
-import { selectUserName } from "../features/userSlice";
+import { selectUserName, selectUserEmail } from "../features/userSlice";
 // @ts-ignore
 import { selectPage } from "../features/pageSlice";
 import Signup from "./Signup.js";
+import Create from "./Create.js";
+import { useEffect, useState } from "react";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 
 const StyledMain = styled.main`
   background-color: white;
@@ -27,9 +30,30 @@ interface PageState {
 
 export default function Home() {
   app;
-  const orders: Array<any> = [];
+  const [orders, setOrders] = useState([]);
   const userName = useSelector(selectUserName);
+  const userEmail = useSelector(selectUserEmail);
   const page: PageState = useSelector(selectPage);
+
+  useEffect(() => {
+    const q = query(
+      collection(db, "Orders"),
+      where("userEmail", "==", userEmail)
+    );
+    return onSnapshot(q, (snapshot) => {
+      setOrders([]);
+      snapshot.docs.forEach((doc) => {
+        // @ts-ignore
+        setOrders((o) => [
+          ...o,
+          {
+            ...doc.data(),
+            docId: doc.ref,
+          },
+        ]);
+      });
+    });
+  }, [userEmail]);
 
   if (!userName) return <Signup />;
 
@@ -37,7 +61,7 @@ export default function Home() {
     <Layout>
       <StyledMain>
         {page.name === "home" && <Orders orders={orders} />}
-        {page.name === "create" && <h1>Hello World</h1>}
+        {page.name === "create" && <Create />}
       </StyledMain>
     </Layout>
   );

@@ -86,12 +86,11 @@ export default function Nav() {
         </div>
         <StyledUL>
           <StyledLI onClick={() => handlePageChange("home")}>
-            Home {page.name === "home" && "🟢"}
+            Orders {page.name === "home" && "🟢"}
           </StyledLI>
           <StyledLI onClick={() => handlePageChange("create")}>
-            Orders {page.name === "create" && "🟢"}
+            Create {page.name === "create" && "🟢"}
           </StyledLI>
-          <StyledLI>Manage</StyledLI>
         </StyledUL>
       </StyledDiv>
       <button onClick={handleSignOut}>Logout</button>

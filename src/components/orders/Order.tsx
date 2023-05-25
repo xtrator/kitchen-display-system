@@ -11,6 +11,8 @@ interface Props {
     orderTime: string;
     estimate: number;
     table: number;
+    status: string;
+    docId: string;
   };
 }
 
@@ -102,7 +104,7 @@ export default function Order({ order }: Props) {
       <MetaDiv>
         <MetaP>
           <MetaSpan>Order {order.orderId}</MetaSpan>
-          <MetaSpan $secondary>Order time: {order.orderTime}</MetaSpan>
+          <MetaSpan $secondary>{order.status}</MetaSpan>
         </MetaP>
         <MetaP>
           <MetaSpan>Table: {order.table}</MetaSpan>
@@ -126,8 +128,14 @@ export default function Order({ order }: Props) {
         })}
       </ProductsWrapper>
       <ButtonsWrapper>
-        <StyledButton $color="#1AD285">Spike</StyledButton>
-        <StyledButton $color="#FF7979">Push</StyledButton>
+        {order.status === "pending" && (
+          <StyledButton $color="#1AD285">Prepare</StyledButton>
+        )}
+        {order.status === "preparing" && (
+          <StyledButton $color="#1AD285">Finish</StyledButton>
+        )}
+
+        <StyledButton $color="#FF7979">Cancel</StyledButton>
       </ButtonsWrapper>
     </WrapperElement>
   );
