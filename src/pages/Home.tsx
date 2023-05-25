@@ -1,15 +1,15 @@
 // @ts-ignore
 import { app } from "../../firebase-config.js";
-import { signInWithPopup, getAuth, GoogleAuthProvider } from "firebase/auth";
 
 import Layout from "./layout";
 import { styled } from "styled-components";
 import orderData from "../data/orders.json";
 import Orders from "../components/orders/Orders";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 // @ts-ignore
-import { setActiveUser, selectUserName } from "../features/userSlice";
+import { selectUserName } from "../features/userSlice";
+import Signup from "./Signup.js";
 
 const StyledMain = styled.main`
   background-color: white;
@@ -22,23 +22,10 @@ const StyledMain = styled.main`
 export default function Home() {
   app;
   const orders = orderData.orders;
-  const dispatch = useDispatch();
   const userName = useSelector(selectUserName);
 
-  const handleSignIn = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(getAuth(), provider).then((result) => {
-      dispatch(
-        setActiveUser({
-          userName: result.user.displayName,
-          userEmail: result.user.email,
-          userPhoto: result.user.photoURL || "/profile.jpeg",
-        })
-      );
-    });
-  };
+  if (!userName) return <Signup />;
 
-  if (!userName) return <button onClick={handleSignIn}>Log in</button>;
   return (
     <Layout>
       <StyledMain>
