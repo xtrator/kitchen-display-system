@@ -1,4 +1,5 @@
-import { app, db } from "../../firebase-config.js";
+// @ts-ignore
+import { app } from "../../firebase-config.js";
 import { signInWithPopup, getAuth, GoogleAuthProvider } from "firebase/auth";
 
 import Layout from "./layout";
@@ -7,12 +8,8 @@ import orderData from "../data/orders.json";
 import Orders from "../components/orders/Orders";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setActiveUser,
-  setUserLogOutState,
-  selectUserEmail,
-  selectUserName,
-} from "../features/userSlice";
+// @ts-ignore
+import { setActiveUser, selectUserName } from "../features/userSlice";
 
 const StyledMain = styled.main`
   background-color: white;
@@ -23,7 +20,7 @@ const StyledMain = styled.main`
 `;
 
 export default function Home() {
-  const firebaseApp = app;
+  app;
   const orders = orderData.orders;
   const dispatch = useDispatch();
   const userName = useSelector(selectUserName);

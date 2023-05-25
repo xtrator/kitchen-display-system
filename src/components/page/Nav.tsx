@@ -2,6 +2,7 @@ import { getAuth, signOut } from "firebase/auth";
 import styled, { css } from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
+// @ts-ignore
 import { setUserLogOutState, selectUserPhoto } from "../../features/userSlice";
 
 const StyledNav = styled.nav`

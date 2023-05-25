@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { useSelector } from "react-redux";
+// @ts-ignore
 import { selectUserName } from "../../features/userSlice";
 
 const StyledWrapper = styled.div`
