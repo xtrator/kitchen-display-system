@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signInWithPopup, getAuth, GoogleAuthProvider } from "firebase/auth";
 // @ts-ignore
 import { setActiveUser } from "../features/userSlice";

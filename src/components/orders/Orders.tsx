@@ -22,6 +22,8 @@ const OrdersWrapper = styled.div`
 `;
 
 export default function Orders({ orders }: Props) {
+  if (orders.length === 0)
+    return <h1>Looks like you're empty, create your first order.</h1>;
   return (
     <OrdersWrapper>
       {orders.map((order) => {

@@ -4,6 +4,8 @@ import styled, { css } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 // @ts-ignore
 import { setUserLogOutState, selectUserPhoto } from "../../features/userSlice";
+// @ts-ignore
+import { setPage, selectPage } from "../../features/pageSlice";
 
 const StyledNav = styled.nav`
   width: 200px;
@@ -45,9 +47,18 @@ const StyledP = styled.p<{ $secondary?: boolean }>`
     `}
 `;
 
+const StyledLI = styled.li`
+  cursor: pointer;
+`;
+
+interface PageState {
+  name: string;
+}
+
 export default function Nav() {
   const dispatch = useDispatch();
   const userPhoto: string = useSelector(selectUserPhoto);
+  const page: PageState = useSelector(selectPage);
 
   const handleSignOut = () => {
     signOut(getAuth())
@@ -55,6 +66,14 @@ export default function Nav() {
         dispatch(setUserLogOutState());
       })
       .catch((err) => alert(err.message));
+  };
+
+  const handlePageChange = (pageName: string) => {
+    dispatch(
+      setPage({
+        name: pageName,
+      })
+    );
   };
 
   return (
@@ -66,9 +85,13 @@ export default function Nav() {
           <StyledP $secondary>3:44pm</StyledP>
         </div>
         <StyledUL>
-          <li>🏠 Home</li>
-          <li>📒 Manage</li>
-          <li>🗒 Orders</li>
+          <StyledLI onClick={() => handlePageChange("home")}>
+            Home {page.name === "home" && "🟢"}
+          </StyledLI>
+          <StyledLI onClick={() => handlePageChange("create")}>
+            Orders {page.name === "create" && "🟢"}
+          </StyledLI>
+          <StyledLI>Manage</StyledLI>
         </StyledUL>
       </StyledDiv>
       <button onClick={handleSignOut}>Logout</button>
